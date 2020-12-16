@@ -20,13 +20,16 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
         //jawoi gschoff mid view binding, voi geil sisd miassds R.iwos mochn
         //google use viewbindin android erstellt für edes xml eine eigene klasse
         //developer.android OP
         //Oldschool: val mynameView: TextView = findViewById(R.id.profileName)
         //mit viewbindin:
+
+        /* auskommentiert weil i fragments einbauen woid
         binding.profileName.setOnClickListener{
             binding.profileName.text = "ohaaaaaaaaa viewbinding lul no viewFindById anymore :DD"
-        }
+        }*/
     }
 }

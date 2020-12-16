@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "333476432362",
+    "project_id": "fhs-chat-izzypeez",
+    "storage_bucket": "fhs-chat-izzypeez.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333476432362:android:b5d45cec2cfbdc204b8a93",
+        "android_client_info": {
+          "package_name": "com.example.mobilevo2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "333476432362-f7j9qphlvnmdaton55jt3dtad8lptsfd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3KvjJcr2V7lLgDP71_HGlSDeZ7phgBY8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "333476432362-f7j9qphlvnmdaton55jt3dtad8lptsfd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
