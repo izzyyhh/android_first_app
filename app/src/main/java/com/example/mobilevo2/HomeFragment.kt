@@ -27,5 +27,9 @@ class HomeFragment : Fragment(){
             val action = HomeFragmentDirections.actionHomeFragmentToProfileFragment(name)
             view.findNavController().navigate(action)
         }
+
+        binding.button6.setOnClickListener {
+            view.findNavController().navigate(R.id.action_homeFragment_to_exploreFragment)
+        }
     }
 }
