@@ -12,8 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mobilevo2.databinding.ExampleFragmentBinding
 import com.example.mobilevo2.databinding.ExploreFragmentBinding
 import com.example.mobilevo2.databinding.IzzyFragmentBinding
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObjects
+import com.google.firebase.ktx.Firebase
 
 class ExploreFragment : Fragment(){
+    private val db = Firebase.firestore.collection("posts")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.explore_fragment, container, false)
@@ -23,11 +28,15 @@ class ExploreFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
         val binding = ExploreFragmentBinding.bind(view)
-
         val adapter = MyAdapter()
 
-        binding.izzysList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        db.orderBy("timestamp", Query.Direction.DESCENDING).addSnapshotListener{ v, error ->
+            val posts = v?.toObjects<PostFirebase>().orEmpty()
+            adapter.submitList(posts)
+            binding.izzysList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            binding.izzysList.adapter = adapter
+        }
 
-        binding.izzysList.adapter = adapter
+
     }
 }

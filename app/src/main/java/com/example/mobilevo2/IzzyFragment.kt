@@ -8,6 +8,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.mobilevo2.databinding.IzzyFragmentBinding
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class IzzyFragment : Fragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -19,7 +21,6 @@ class IzzyFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
         val binding = IzzyFragmentBinding.bind(view)
-        
     }
 
 }
