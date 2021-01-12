@@ -25,7 +25,7 @@ class MyAdapter : ListAdapter<PostFirebase, MyAdapter.MyViewHolder>(DIFF_UTIL) {
 
             binding.myname.text = post.author.fullName
             binding.likes.text = post.likes.size.toString()
-            binding.comments.text = "over " + 9000.toString()
+            binding.comments.text = 12.toString()
 
             val onclickToProfileItems = listOf(binding.myname, binding.profileImage)
 
