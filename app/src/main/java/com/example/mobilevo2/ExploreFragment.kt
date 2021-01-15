@@ -33,10 +33,10 @@ class ExploreFragment : Fragment(){
         db.orderBy("timestamp", Query.Direction.DESCENDING).addSnapshotListener{ v, error ->
             val posts = v?.toObjects<PostFirebase>().orEmpty()
             adapter.submitList(posts)
-            binding.izzysList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            binding.izzysList.adapter = adapter
         }
 
+        binding.izzysList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.izzysList.adapter = adapter
 
     }
 }

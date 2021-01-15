@@ -27,14 +27,14 @@ class HomeFragment : Fragment(){
 
         val binding = HomeFragmentBinding.bind(view)
 
-        binding.profileButton.setOnClickListener {
-            val name = "Izzy Alastaii"
-            val action = HomeFragmentDirections.actionHomeFragmentToProfileFragment(name)
-            view.findNavController().navigate(action)
-        }
+        //binding.profileButton.setOnClickListener {
+        //    val name = "Izzy Alastaii"
+        //    val action = HomeFragmentDirections.actionHomeFragmentToProfileFragment(name)
+        //    view.findNavController().navigate(action)
+        //}
 
-        binding.button6.setOnClickListener {
-            view.findNavController().navigate(R.id.action_homeFragment_to_exploreFragment)
-        }
+        //binding.button6.setOnClickListener {
+        //    view.findNavController().navigate(R.id.action_homeFragment_to_exploreFragment)
+        //}
     }
 }

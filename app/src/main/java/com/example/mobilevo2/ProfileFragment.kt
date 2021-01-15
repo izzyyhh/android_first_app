@@ -11,9 +11,12 @@ import androidx.navigation.fragment.navArgs
 import com.example.mobilevo2.databinding.ExampleFragmentBinding
 import com.example.mobilevo2.databinding.IzzyFragmentBinding
 import com.example.mobilevo2.databinding.ProfileFragmentBinding
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class ProfileFragment : Fragment(){
     private val arguments: ProfileFragmentArgs by navArgs()
+    private val db = Firebase.firestore.collection("people")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.profile_fragment, container, false)
@@ -25,6 +28,7 @@ class ProfileFragment : Fragment(){
 
         val name = arguments.name;
         binding.profileName.text = name;
+
 
     }
 

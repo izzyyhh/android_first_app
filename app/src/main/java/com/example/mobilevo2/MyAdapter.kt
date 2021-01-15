@@ -31,7 +31,7 @@ class MyAdapter : ListAdapter<PostFirebase, MyAdapter.MyViewHolder>(DIFF_UTIL) {
 
             onclickToProfileItems.forEach{
                 it.setOnClickListener { view ->
-                    val action = ExploreFragmentDirections.actionExploreFragmentToProfileFragment(post.author.fullName)
+                    val action = ExploreFragmentDirections.actionExploreFragmentToProfileFragment(post.author.fullName + " lol")
                     view.findNavController().navigate(action)
                 }
             }

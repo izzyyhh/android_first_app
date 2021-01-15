@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/outer_nav_graph"
+    app:startDestination="@id/authenticationFragment">
+
+    <fragment
+        android:id="@+id/authenticationFragment"
+        android:name="com.example.mobilevo2.AuthenticationFragment"
+        android:label="Login"
+        tools:layout="@layout/login_signup_fragment">
+        <action
+            android:id="@+id/action_authenticationFragment_to_innerNavigationFragment"
+            app:destination="@id/innerNavigationFragment"
+            app:popUpTo="@id/outer_nav_graph"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/innerNavigationFragment"
+        android:name="com.example.mobilevo2.InnerNavigationFragment"
+        android:label="InnerNavigationFragment"
+        tools:layout="@layout/inner_nav_fragment"/>
+
+</navigation>
