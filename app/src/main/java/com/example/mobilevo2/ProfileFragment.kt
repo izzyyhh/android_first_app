@@ -12,11 +12,12 @@ import com.example.mobilevo2.databinding.ExampleFragmentBinding
 import com.example.mobilevo2.databinding.IzzyFragmentBinding
 import com.example.mobilevo2.databinding.ProfileFragmentBinding
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 
 class ProfileFragment : Fragment(){
     private val arguments: ProfileFragmentArgs by navArgs()
-    private val db = Firebase.firestore.collection("people")
+    private val dbPeople = Firebase.firestore.collection("people")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.profile_fragment, container, false)
@@ -26,9 +27,17 @@ class ProfileFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
         val binding = ProfileFragmentBinding.bind(view)
 
-        val name = arguments.name;
-        binding.profileName.text = name;
-
+        dbPeople.document(arguments.personUid)
+                .get()
+                .addOnSuccessListener {
+                    val person = it.toObject<Person>()
+                    binding.profileName.text = person?.fullName
+                    binding.postsNum.text = person?.posts?.size.toString()
+                    binding.followersNum.text = person?.followers?.size.toString()
+                    binding.followingNum.text = person?.following?.size.toString()
+                    binding.description.text = person?.description
+                    //binding.profilePicture need default for profile picture
+                }
 
     }
 

@@ -20,9 +20,8 @@
         android:label="Profile"
         tools:layout="@layout/profile_fragment" >
         <argument
-            android:name="name"
-            app:argType="string"
-            android:defaultValue="default value" />
+            android:name="person_uid"
+            app:argType="string" />
     </fragment>
     <activity
         android:id="@+id/mainActivity"

@@ -11,8 +11,11 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.mobilevo2.databinding.InnerNavFragmentBinding
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class InnerNavigationFragment : Fragment() {
@@ -20,10 +23,9 @@ class InnerNavigationFragment : Fragment() {
     private lateinit var navController: NavController
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        //if user logs in, save him
+        saveUser()
         return inflater.inflate(R.layout.inner_nav_fragment, container, false)
-       // bottomNav.setOnNavigationItemReselectedListener {
-       //     false
-        //}
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,9 +58,31 @@ class InnerNavigationFragment : Fragment() {
                 }
             }
         }
+
+        bottomNav.setOnNavigationItemReselectedListener {
+            false
+        }
     }
 
+    private fun saveUser(){
+        if(Firebase.auth.currentUser != null){
+            val uid = Firebase.auth.currentUser?.uid
+            val dbPeople = Firebase.firestore.collection("people")
+            val docRefForThisUser = dbPeople.document(uid.toString())
 
+            docRefForThisUser.get()
+                    .addOnSuccessListener {
+                        if (!it.exists()) {
+                            //user is not saved in database yet
+                            val person : Person = Person(
+                                    Firebase.auth.currentUser?.displayName.toString()
+                            )
 
+                            dbPeople.document(uid.toString()).set(person)
+                            Snackbar.make(requireView(), "welcome " + Firebase.auth.currentUser?.displayName, Snackbar.LENGTH_SHORT).show()
 
+                        }
+                    }
+        }
+    }
 }

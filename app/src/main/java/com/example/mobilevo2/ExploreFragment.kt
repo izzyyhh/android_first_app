@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mobilevo2.databinding.ExampleFragmentBinding
 import com.example.mobilevo2.databinding.ExploreFragmentBinding
 import com.example.mobilevo2.databinding.IzzyFragmentBinding
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObjects
@@ -37,6 +38,10 @@ class ExploreFragment : Fragment(){
 
         binding.izzysList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.izzysList.adapter = adapter
+
+        binding.postButton.setOnClickListener {
+            Snackbar.make(view, "post fragment NOW :D", Snackbar.LENGTH_SHORT).show()
+        }
 
     }
 }
