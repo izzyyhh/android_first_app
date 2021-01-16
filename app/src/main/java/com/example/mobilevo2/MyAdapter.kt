@@ -1,7 +1,9 @@
 package com.example.mobilevo2
 
 
+import android.opengl.Visibility
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
@@ -11,10 +13,10 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import com.example.mobilevo2.databinding.ForAdapterMyBinding
 
-class MyAdapter : ListAdapter<PostFirebase, MyAdapter.MyViewHolder>(DIFF_UTIL) {
+class MyAdapter : ListAdapter<Post, MyAdapter.MyViewHolder>(DIFF_UTIL) {
 
     class MyViewHolder(private val binding: ForAdapterMyBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bindMe(post: PostFirebase){
+        fun bindMe(post: Post){
             binding.profileImage.load(post.author.profilePicture) {
                 crossfade(true)
                 transformations(CircleCropTransformation())
@@ -26,6 +28,11 @@ class MyAdapter : ListAdapter<PostFirebase, MyAdapter.MyViewHolder>(DIFF_UTIL) {
             binding.myname.text = post.author.fullName
             binding.likes.text = post.likes.size.toString()
             binding.comments.text = 12.toString()
+            binding.postDescription.text = post.text
+
+            if(post.text == "" || post.text == null){
+                binding.postDescription.visibility = View.GONE
+            }
 
             val onclickToProfileItems = listOf(binding.myname, binding.profileImage)
 
@@ -50,10 +57,10 @@ class MyAdapter : ListAdapter<PostFirebase, MyAdapter.MyViewHolder>(DIFF_UTIL) {
     }
 
     companion object{
-        val DIFF_UTIL = object : DiffUtil.ItemCallback<PostFirebase>(){
-            override fun areItemsTheSame(oldItem: PostFirebase, newItem: PostFirebase): Boolean = oldItem == newItem
+        val DIFF_UTIL = object : DiffUtil.ItemCallback<Post>(){
+            override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean = oldItem == newItem
 
-            override fun areContentsTheSame(oldItem: PostFirebase, newItem: PostFirebase): Boolean = oldItem == newItem
+            override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean = oldItem == newItem
         }
     }
 }

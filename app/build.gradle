@@ -53,6 +53,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-firestore:21.4.0'
     implementation 'com.firebaseui:firebase-ui-auth:7.1.1'
+    implementation 'com.google.firebase:firebase-storage-ktx'
 
     //coil for images
     implementation("io.coil-kt:coil:1.1.0")

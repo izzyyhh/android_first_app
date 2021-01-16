@@ -32,7 +32,7 @@ class ExploreFragment : Fragment(){
         val adapter = MyAdapter()
 
         db.orderBy("timestamp", Query.Direction.DESCENDING).addSnapshotListener{ v, error ->
-            val posts = v?.toObjects<PostFirebase>().orEmpty()
+            val posts = v?.toObjects<Post>().orEmpty()
             adapter.submitList(posts)
         }
 
@@ -40,7 +40,7 @@ class ExploreFragment : Fragment(){
         binding.izzysList.adapter = adapter
 
         binding.postButton.setOnClickListener {
-            Snackbar.make(view, "post fragment NOW :D", Snackbar.LENGTH_SHORT).show()
+            findNavController().navigate(ExploreFragmentDirections.actionExploreFragmentToPostFragment())
         }
 
     }

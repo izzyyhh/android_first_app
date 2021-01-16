@@ -5,7 +5,7 @@ import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.PropertyName
 
-data class PostFirebase(
+data class Post(
     @JvmField @DocumentId
     var documentId: String = "",
 
