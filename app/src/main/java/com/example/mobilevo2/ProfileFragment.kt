@@ -37,8 +37,13 @@ class ProfileFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
         val binding = ProfileFragmentBinding.bind(view)
 
+
+
+        val personUId = if(arguments.personUid == "default") Firebase.auth.currentUser?.uid.toString() else arguments.personUid
+        val viewedPersonRef = dbPeople.document(personUId)
         val adapter = ProfilePostsListAdapter()
-        currentPersonRef.get().addOnSuccessListener {
+
+        viewedPersonRef.get().addOnSuccessListener {
             val person = it.toObject<Person>() as Person
             val posts = person.posts
 
@@ -47,9 +52,6 @@ class ProfileFragment : Fragment(){
 
         binding.postsProfileList.layoutManager = GridLayoutManager(context, 3)
         binding.postsProfileList.adapter = adapter
-
-        val personUId = if(arguments.personUid == "default") Firebase.auth.currentUser?.uid.toString() else arguments.personUid
-        val viewedPersonRef = dbPeople.document(personUId)
 
         //edit button or follow button
         if(personUId != Firebase.auth.currentUser?.uid.toString()){
