@@ -57,13 +57,13 @@
             android:id="@+id/posted_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:adjustViewBounds="true"
             android:backgroundTint="@color/black"
             android:scaleType="fitCenter"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/post_description" />
+            app:layout_constraintTop_toBottomOf="@+id/post_description"
+            android:layout_marginTop="16dp"/>
 
         <TextView
             android:id="@+id/likes"
@@ -74,16 +74,15 @@
             android:layout_marginBottom="12dp"
             android:text="TextView"
             android:textSize="12dp"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/favorite_button"
             app:layout_constraintTop_toBottomOf="@id/posted_image" />
 
         <ImageView
             android:id="@+id/favorite_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="12dp"
             android:src="@drawable/ic_baseline_favorite_border_24"

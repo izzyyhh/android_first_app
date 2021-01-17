@@ -42,8 +42,8 @@ class InnerNavigationFragment : Fragment() {
         bottomNav.setOnNavigationItemSelectedListener{
             when(it.itemId){
                 R.id.profileFragment -> {
-                    val action = ExploreFragmentDirections.actionExploreFragmentToProfileFragment(Firebase.auth.currentUser?.uid.toString())
-                    navController.navigate(action)
+                    //val action = ExploreFragmentDirections.actionExploreFragmentToProfileFragment(Firebase.auth.currentUser?.uid.toString())
+                    navController.navigate(R.id.profileFragment)
                     true
                 }
                 R.id.exploreFragment -> {
@@ -60,7 +60,15 @@ class InnerNavigationFragment : Fragment() {
         }
 
         bottomNav.setOnNavigationItemReselectedListener {
-            false
+            when(it.itemId){
+                R.id.profileFragment -> {
+                    navController.navigate(R.id.profileFragment)
+                    true
+                }
+                else -> {
+                    false
+                }
+            }
         }
     }
 

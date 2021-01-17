@@ -7,24 +7,27 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/izzys_list"
+        android:id="@+id/posts_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/for_adapter_my"
+        tools:listitem="@layout/post_card"
         android:layout_marginBottom="50dp" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/post_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="72dp"
+        android:layout_marginRight="12dp"
         android:backgroundTint="@color/fui_linkColor"
         android:src="@drawable/ic_baseline_post_add_24"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:icon="@drawable/ic_baseline_post_add_24"
+        android:text="new post"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

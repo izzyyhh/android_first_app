@@ -20,12 +20,7 @@ class AuthenticationFragment : Fragment(R.layout.login_signup_fragment) {
     private val providers = listOf(
             AuthUI.IdpConfig.EmailBuilder().build(),
             AuthUI.IdpConfig.GoogleBuilder().setScopes(listOf(Scopes.PROFILE)).build()
-
     )
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,6 +36,7 @@ class AuthenticationFragment : Fragment(R.layout.login_signup_fragment) {
         val authIntent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
+                .setIsSmartLockEnabled(false)
                 .build()
 
         startActivityForResult(authIntent, REQUEST_CODE_LOG_IN)

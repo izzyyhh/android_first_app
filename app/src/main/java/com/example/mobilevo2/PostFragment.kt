@@ -1,5 +1,6 @@
 package com.example.mobilevo2
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -8,11 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import coil.load
 import com.example.mobilevo2.databinding.PostFragmentBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -77,7 +80,15 @@ class PostFragment : Fragment() {
 
                             newPostRef.set(newPost)
                                 .addOnSuccessListener {
-                                    Snackbar.make(view, "post uploaded successfully", Snackbar.LENGTH_SHORT).show()
+
+                                    dbPeople.document(Firebase.auth.currentUser?.uid.toString()).update("posts", FieldValue.arrayUnion(newPostRef))
+                                            .addOnSuccessListener {
+                                                Snackbar.make(view, "post uploaded successfully", Snackbar.LENGTH_SHORT).show()
+                                                findNavController().navigate(PostFragmentDirections.actionPostFragmentToExploreFragment())
+                                            }
+                                            .addOnFailureListener{
+                                                Snackbar.make(view, "posted but something went wrong, when saving it to the user", Snackbar.LENGTH_SHORT).show()
+                                            }
                                 }
                                 .addOnFailureListener{
                                     Snackbar.make(view, "post could not be uploaded, try again", Snackbar.LENGTH_SHORT).show()
@@ -89,28 +100,32 @@ class PostFragment : Fragment() {
                 Snackbar.make(view, "select an image first, to post something", Snackbar.LENGTH_SHORT).show()
             }
         }
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode == PICK_IMAGE_REQUEST_CODE){
+        if(requestCode == PICK_IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK){
+
+            if(data == null || data.data == null){
+                //return if nothing is selected
+                return
+            }
+
             //show selected image
-            val imageUri = data?.data
-            Snackbar.make(requireView(), imageUri.toString(), Snackbar.LENGTH_SHORT).show()
+            val imageUri = data.data as Uri
             binding.fromGalleryImg.visibility = View.GONE
             binding.imageView.load(imageUri)
 
             //get new id and saved it with it
             newPostRef = dbPosts.document()
             val newPostId = newPostRef.id
-            imageStream = context?.contentResolver?.openInputStream(imageUri as Uri) as InputStream
+            imageStream = context?.contentResolver?.openInputStream(imageUri) as InputStream
             val imageRef = storage.reference.child("posts-images/${newPostId}")
+            
             val uploadTask = imageRef.putStream(imageStream)
             uploadTask.addOnSuccessListener {
                 uploadSuccessful = true
-                Snackbar.make(requireView(), "hochgeladen iwas " + it.metadata.toString(), Snackbar.LENGTH_SHORT).show()
             }
         }
     }
