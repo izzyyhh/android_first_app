@@ -33,12 +33,12 @@ class ExploreFragment : Fragment(){
         binding.postsList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.postsList.adapter = adapter
 
-        db.orderBy("timestamp", Query.Direction.DESCENDING).addSnapshotListener{ v, error ->
-            val posts = v?.toObjects<Post>().orEmpty()
+        //no snapshotlistener here, reason -> do not want to reload cardview after liking
+        //thus snapshotlistener in cardview -> adapter
+        db.orderBy("timestamp", Query.Direction.DESCENDING).get().addOnSuccessListener{
+            val posts = it?.toObjects<Post>().orEmpty()
             adapter.submitList(posts)
         }
-
-
 
         binding.postButton.setOnClickListener {
             findNavController().navigate(ExploreFragmentDirections.actionExploreFragmentToPostFragment())

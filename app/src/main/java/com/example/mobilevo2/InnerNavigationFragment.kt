@@ -64,6 +64,10 @@ class InnerNavigationFragment : Fragment() {
                     navController.navigate(R.id.profileFragment)
                     true
                 }
+                R.id.exploreFragment -> {
+                    navController.navigate(R.id.exploreFragment)
+                    true
+                }
                 else -> {
                     false
                 }

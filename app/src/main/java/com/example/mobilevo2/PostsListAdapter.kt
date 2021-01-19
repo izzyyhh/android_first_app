@@ -23,6 +23,7 @@ class PostsListAdapter : ListAdapter<Post, PostsListAdapter.MyViewHolder>(DIFF_U
         private val currentPersonRef = Firebase.firestore.collection("people").document(Firebase.auth.currentUser?.uid.toString())
 
         fun bindMe(post: Post){
+            //loading data into view
             //profile picture
             if(post.author.profilePicture != "" && post.author.profilePicture != null && post.author.profilePicture != "null"){
                 binding.profileImage.load(post.author.profilePicture) {
@@ -42,45 +43,64 @@ class PostsListAdapter : ListAdapter<Post, PostsListAdapter.MyViewHolder>(DIFF_U
             binding.myname.text = post.author.fullName
             binding.likes.text = post.likes.size.toString()
             binding.postDescription.text = post.text
-            //comments in own collection
-            val postRef = Firebase.firestore.collection("posts").document(post.documentId)
-
-                postRef.collection("comments").addSnapshotListener { value, _ ->
-                        val comments = value?.toObjects<Comment>()
-                        binding.comments.text = comments?.size.toString()
-                    }
-
-            //like button
-
-            if(post.likes.contains(currentPersonRef)){
-                binding.favoriteButton.load(R.drawable.ic_baseline_favorite_24)
-            } else {
-                binding.favoriteButton.load(R.drawable.ic_baseline_favorite_border_24)
-            }
-
-            binding.favoriteButton.setOnClickListener {
-                val postRef = Firebase.firestore.collection("posts").document(post.documentId)
-
-                if(post.likes.contains(currentPersonRef)){
-                    //dont like anymore
-                    binding.favoriteButton.load(R.drawable.ic_baseline_favorite_border_24)
-                    postRef.update("likes", FieldValue.arrayRemove(currentPersonRef))
-
-                } else{
-                    binding.favoriteButton.load(R.drawable.ic_baseline_favorite_24)
-                    postRef.update("likes", FieldValue.arrayUnion(currentPersonRef))
-                }
-            }
-
-            binding.commentButton.setOnClickListener{
-                it.findNavController().navigate(ExploreFragmentDirections.actionExploreFragmentToCommentFragment(post.documentId))
-            }
 
             //description
             if(post.text == "" || post.text == null){
                 binding.postDescription.visibility = View.GONE
             }
 
+            //comments in own collection
+            val postRef = Firebase.firestore.collection("posts").document(post.documentId)
+            //how many likes
+            postRef.collection("comments").addSnapshotListener { value, _ ->
+                val comments = value?.toObjects<Comment>()
+                binding.comments.text = comments?.size.toString()
+            }
+
+            //like button
+            //is liked or is not liked, default is not liked
+            if (post.likes.contains(currentPersonRef)){
+                binding.favoriteButton.load(R.drawable.ic_baseline_favorite_24)
+            }
+
+            //user interaction
+            //add snaplistener for updating view after updating like via like button
+            postRef.addSnapshotListener { value, _ ->
+                val post = value?.toObject<Post>() as Post
+                binding.likes.text = post.likes.size.toString()
+
+                if(post.likes.contains(currentPersonRef)){
+                    binding.favoriteButton.load(R.drawable.ic_baseline_favorite_24)
+
+                } else{
+                    binding.favoriteButton.load(R.drawable.ic_baseline_favorite_border_24)
+                }
+            }
+
+            //onclick, handle toggling like
+            binding.favoriteButton.setOnClickListener {
+                postRef.get().addOnSuccessListener {
+
+                    val post = it?.toObject<Post>() as Post
+
+                    if(post.likes.contains(currentPersonRef)){
+                        //dont like anymore
+                        postRef.update("likes", FieldValue.arrayRemove(currentPersonRef))
+
+                    } else{
+                        postRef.update("likes", FieldValue.arrayUnion(currentPersonRef))
+                    }
+                }
+
+            }
+
+            binding.commentButton.setOnClickListener{
+                it.findNavController().navigate(ExploreFragmentDirections.actionExploreFragmentToCommentFragment(post.documentId))
+            }
+
+
+
+            //items which navigate to profile fragment
             val onclickToProfileItems = listOf(binding.myname, binding.profileImage)
 
             onclickToProfileItems.forEach{
