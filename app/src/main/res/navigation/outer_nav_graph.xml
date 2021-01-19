@@ -9,7 +9,7 @@
         android:id="@+id/authenticationFragment"
         android:name="com.example.mobilevo2.AuthenticationFragment"
         android:label="Login"
-        tools:layout="@layout/login_signup_fragment">
+        tools:layout="@layout/authentication_fragment">
         <action
             android:id="@+id/action_authenticationFragment_to_innerNavigationFragment"
             app:destination="@id/innerNavigationFragment"
@@ -20,6 +20,6 @@
         android:id="@+id/innerNavigationFragment"
         android:name="com.example.mobilevo2.InnerNavigationFragment"
         android:label="InnerNavigationFragment"
-        tools:layout="@layout/inner_nav_fragment"/>
+        tools:layout="@layout/inner_nav_host_fragment"/>
 
 </navigation>

@@ -16,6 +16,10 @@ import com.google.firebase.ktx.Firebase
 class ExploreFragment : Fragment(){
     private val db = Firebase.firestore.collection("posts")
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.explore_fragment, container, false)
     }
@@ -26,13 +30,15 @@ class ExploreFragment : Fragment(){
         val binding = ExploreFragmentBinding.bind(view)
         val adapter = PostsListAdapter()
 
+        binding.postsList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.postsList.adapter = adapter
+
         db.orderBy("timestamp", Query.Direction.DESCENDING).addSnapshotListener{ v, error ->
             val posts = v?.toObjects<Post>().orEmpty()
             adapter.submitList(posts)
         }
 
-        binding.postsList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        binding.postsList.adapter = adapter
+
 
         binding.postButton.setOnClickListener {
             findNavController().navigate(ExploreFragmentDirections.actionExploreFragmentToPostFragment())

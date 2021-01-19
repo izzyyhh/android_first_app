@@ -102,7 +102,7 @@ class EditFragment : Fragment() {
         val storageRef = Firebase.storage.reference.child("profile-pictures/${uniqueImageRef}")
         val imageStream = context?.contentResolver?.openInputStream(imageUri) as InputStream
 
-        val uploadTask = storageRef.putStream(imageStream)
+        storageRef.putStream(imageStream)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

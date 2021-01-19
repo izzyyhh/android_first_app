@@ -2,11 +2,8 @@ package com.example.mobilevo2
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
@@ -15,7 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class AuthenticationFragment : Fragment(R.layout.login_signup_fragment) {
+class AuthenticationFragment : Fragment(R.layout.authentication_fragment) {
 
     private val providers = listOf(
             AuthUI.IdpConfig.EmailBuilder().build(),

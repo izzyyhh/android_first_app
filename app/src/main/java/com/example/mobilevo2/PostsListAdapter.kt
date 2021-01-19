@@ -13,11 +13,15 @@ import com.example.mobilevo2.databinding.PostCardBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
 
 class PostsListAdapter : ListAdapter<Post, PostsListAdapter.MyViewHolder>(DIFF_UTIL) {
 
     class MyViewHolder(private val binding: PostCardBinding) : RecyclerView.ViewHolder(binding.root){
+        private val currentPersonRef = Firebase.firestore.collection("people").document(Firebase.auth.currentUser?.uid.toString())
+
         fun bindMe(post: Post){
             //profile picture
             if(post.author.profilePicture != "" && post.author.profilePicture != null && post.author.profilePicture != "null"){
@@ -39,14 +43,14 @@ class PostsListAdapter : ListAdapter<Post, PostsListAdapter.MyViewHolder>(DIFF_U
             binding.likes.text = post.likes.size.toString()
             binding.postDescription.text = post.text
             //comments in own collection
-            Firebase.firestore.collection("posts").document(post.documentId)
-                    .collection("comments").get()
-                    .addOnSuccessListener {
-                            binding.comments.text = it.size().toString()
+            val postRef = Firebase.firestore.collection("posts").document(post.documentId)
+
+                postRef.collection("comments").addSnapshotListener { value, _ ->
+                        val comments = value?.toObjects<Comment>()
+                        binding.comments.text = comments?.size.toString()
                     }
 
             //like button
-            val currentPersonRef = Firebase.firestore.collection("people").document(Firebase.auth.currentUser?.uid.toString())
 
             if(post.likes.contains(currentPersonRef)){
                 binding.favoriteButton.load(R.drawable.ic_baseline_favorite_24)

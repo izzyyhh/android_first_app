@@ -10,27 +10,26 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
-import com.example.mobilevo2.databinding.InnerNavFragmentBinding
+import com.example.mobilevo2.databinding.InnerNavHostFragmentBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class InnerNavigationFragment : Fragment() {
-    private lateinit var binding: InnerNavFragmentBinding
+    private lateinit var binding: InnerNavHostFragmentBinding
     private lateinit var navController: NavController
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         //if user logs in, save him
         saveUser()
-        return inflater.inflate(R.layout.inner_nav_fragment, container, false)
+        return inflater.inflate(R.layout.inner_nav_host_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = InnerNavFragmentBinding.bind(view)
+        binding = InnerNavHostFragmentBinding.bind(view)
         navController = requireActivity().findNavController(R.id.innerNavHostFragment)
         //update actionbar
 

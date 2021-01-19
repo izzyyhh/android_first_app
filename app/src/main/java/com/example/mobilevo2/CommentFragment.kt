@@ -35,11 +35,11 @@ class CommentFragment : Fragment() {
         currentPersonRef = Firebase.firestore.collection("people").document(Firebase.auth.currentUser?.uid.toString())
 
         val adapter = CommentsListAdapter()
-        dbPostRef.collection("comments").get()
-                .addOnSuccessListener { commentsSnapShot ->
-                    val comments = commentsSnapShot.toObjects<Comment>()
+
+        dbPostRef.collection("comments").orderBy("timestamp").addSnapshotListener { value, _ ->
+                    val comments = value?.toObjects<Comment>()
                     adapter.submitList(comments)
-                }
+        }
 
         binding.commentList.layoutManager = LinearLayoutManager(context)
         binding.commentList.adapter = adapter
@@ -64,8 +64,9 @@ class CommentFragment : Fragment() {
             val comment = Comment(newCommentRef.id, author, binding.commentInput.text.toString())
             newCommentRef.set(comment)
                     .addOnSuccessListener {
+                        binding.commentInput.text?.clear()
                         Snackbar.make(requireView(), "commented with: ${comment.text}", Snackbar.LENGTH_LONG).show()
-                        findNavController().navigate(CommentFragmentDirections.actionCommentFragmentToExploreFragment())
+                        //findNavController().navigate(CommentFragmentDirections.actionCommentFragmentToExploreFragment())
                     }
         }
 
