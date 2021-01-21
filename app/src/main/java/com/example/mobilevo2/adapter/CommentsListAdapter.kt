@@ -1,4 +1,4 @@
-package com.example.mobilevo2
+package com.example.mobilevo2.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
+import com.example.mobilevo2.data.Comment
 import com.example.mobilevo2.databinding.CommentListItemBinding
 
 class CommentsListAdapter : ListAdapter<Comment, CommentsListAdapter.CommentsViewHolder>(DIFF_UTIL) {

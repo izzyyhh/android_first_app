@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mobilevo2.adapter.PostsListAdapter
+import com.example.mobilevo2.data.Post
 import com.example.mobilevo2.databinding.ExploreFragmentBinding
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore

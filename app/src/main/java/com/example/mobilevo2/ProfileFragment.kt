@@ -11,6 +11,8 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import coil.load
 import coil.transform.CircleCropTransformation
+import com.example.mobilevo2.adapter.ProfilePostsListAdapter
+import com.example.mobilevo2.data.Person
 import com.example.mobilevo2.databinding.ProfileFragmentBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth

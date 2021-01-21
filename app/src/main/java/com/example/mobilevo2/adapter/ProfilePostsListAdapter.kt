@@ -1,4 +1,4 @@
-package com.example.mobilevo2
+package com.example.mobilevo2.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.example.mobilevo2.data.Post
 import com.example.mobilevo2.databinding.ProfilePostListItemBinding
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.ktx.toObject

@@ -1,4 +1,4 @@
-package com.example.mobilevo2
+package com.example.mobilevo2.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +9,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
+import com.example.mobilevo2.ExploreFragmentDirections
+import com.example.mobilevo2.R
+import com.example.mobilevo2.data.Comment
+import com.example.mobilevo2.data.Post
 import com.example.mobilevo2.databinding.PostCardBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue

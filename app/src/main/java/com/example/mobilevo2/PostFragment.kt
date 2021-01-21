@@ -11,6 +11,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.example.mobilevo2.data.Author
+import com.example.mobilevo2.data.Person
+import com.example.mobilevo2.data.Post
 import com.example.mobilevo2.databinding.PostFragmentBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth

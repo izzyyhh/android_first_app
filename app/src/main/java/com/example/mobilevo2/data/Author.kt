@@ -1,4 +1,4 @@
-package com.example.mobilevo2
+package com.example.mobilevo2.data
 
 import com.google.firebase.firestore.PropertyName
 
