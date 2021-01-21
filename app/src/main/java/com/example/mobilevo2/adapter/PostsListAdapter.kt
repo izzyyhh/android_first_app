@@ -14,6 +14,8 @@ import com.example.mobilevo2.R
 import com.example.mobilevo2.data.Comment
 import com.example.mobilevo2.data.Post
 import com.example.mobilevo2.databinding.PostCardBinding
+import com.example.mobilevo2.listeners.DoubleTapListener
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
@@ -95,13 +97,24 @@ class PostsListAdapter : ListAdapter<Post, PostsListAdapter.MyViewHolder>(DIFF_U
                         postRef.update("likes", FieldValue.arrayUnion(currentPersonRef))
                     }
                 }
-
             }
+
+            binding.postedImage.setOnClickListener(object: DoubleTapListener(){
+              override fun onDoubleTap(v: View?){
+                  postRef.get().addOnSuccessListener {
+
+                      val post = it?.toObject<Post>() as Post
+
+                      if(!post.likes.contains(currentPersonRef)){
+                          postRef.update("likes", FieldValue.arrayUnion(currentPersonRef))
+                      } //else nothing, cannot dislike with double tap
+                  }
+              }
+            })
 
             binding.commentButton.setOnClickListener{
                 it.findNavController().navigate(ExploreFragmentDirections.actionExploreFragmentToCommentFragment(post.documentId))
             }
-
 
 
             //items which navigate to profile fragment
