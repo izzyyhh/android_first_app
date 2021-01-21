@@ -12,9 +12,9 @@ import com.example.mobilevo2.databinding.CommentListItemBinding
 class CommentsListAdapter : ListAdapter<Comment, CommentsListAdapter.CommentsViewHolder>(DIFF_UTIL) {
 
     class CommentsViewHolder(private val binding: CommentListItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bindComment(comment: Comment){
-            if(comment.author.profilePicture != null && comment.author.profilePicture != "" && comment.author.profilePicture != "null"){
-                binding.profilePicture.load(comment.author.profilePicture){
+        fun bindComment(comment: Comment) {
+            if (comment.author.profilePicture != null && comment.author.profilePicture != "" && comment.author.profilePicture != "null") {
+                binding.profilePicture.load(comment.author.profilePicture) {
                     crossfade(true)
                     transformations(CircleCropTransformation())
                 }
@@ -35,8 +35,8 @@ class CommentsListAdapter : ListAdapter<Comment, CommentsListAdapter.CommentsVie
         return holder.bindComment(getItem(position))
     }
 
-    companion object{
-        val DIFF_UTIL = object : DiffUtil.ItemCallback<Comment>(){
+    companion object {
+        val DIFF_UTIL = object : DiffUtil.ItemCallback<Comment>() {
             override fun areItemsTheSame(oldItem: Comment, newItem: Comment): Boolean = oldItem == newItem
 
             override fun areContentsTheSame(oldItem: Comment, newItem: Comment): Boolean = oldItem == newItem

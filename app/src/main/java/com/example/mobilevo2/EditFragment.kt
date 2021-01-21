@@ -24,10 +24,10 @@ import com.google.firebase.storage.ktx.storage
 import java.io.InputStream
 
 class EditFragment : Fragment() {
-    private lateinit var binding : EditFragmentBinding
+    private lateinit var binding: EditFragmentBinding
     private val currentPersonRef = Firebase.firestore.collection("people").document(Firebase.auth.currentUser?.uid.toString())
-    private lateinit var currentPerson : Person
-    private var uniqueImageRef : String = ""
+    private lateinit var currentPerson: Person
+    private var uniqueImageRef: String = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.edit_fragment, container, false)
@@ -36,8 +36,6 @@ class EditFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = EditFragmentBinding.bind(view)
-
-
 
         currentPersonRef.get()
                 .addOnSuccessListener {
@@ -63,12 +61,12 @@ class EditFragment : Fragment() {
             getImageFromGallery()
         }
 
-        binding.updateButton.setOnClickListener{
+        binding.updateButton.setOnClickListener {
             updateProfile()
         }
     }
 
-    private fun updateProfile(){
+    private fun updateProfile() {
         if (uniqueImageRef != "") {
             Firebase.storage.reference.child("profile-pictures/${uniqueImageRef}").downloadUrl
                     .addOnSuccessListener { imageUrl ->
@@ -87,7 +85,7 @@ class EditFragment : Fragment() {
         }
     }
 
-    private fun getImageFromGallery(){
+    private fun getImageFromGallery() {
         val pickIntent = Intent(
                 Intent.ACTION_PICK,
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI
@@ -97,7 +95,7 @@ class EditFragment : Fragment() {
         startActivityForResult(pickIntent, EditFragment.PICK_IMAGE_REQUEST_CODE)
     }
 
-    private fun storeProfileImage(imageUri: Uri){
+    private fun storeProfileImage(imageUri: Uri) {
         uniqueImageRef = "${Timestamp.now().nanoseconds}_${Timestamp.now().seconds}_${imageUri.lastPathSegment}"
         val storageRef = Firebase.storage.reference.child("profile-pictures/${uniqueImageRef}")
         val imageStream = context?.contentResolver?.openInputStream(imageUri) as InputStream
@@ -108,14 +106,14 @@ class EditFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if( requestCode == PICK_IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK){
-            if (data == null || data.data == null){
+        if (requestCode == PICK_IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            if (data == null || data.data == null) {
                 return
             }
 
             val imageUri = data.data as Uri
             binding.fromGalleryImg.visibility = View.GONE
-            binding.profilePicture.load(imageUri){
+            binding.profilePicture.load(imageUri) {
                 crossfade(true)
                 transformations(CircleCropTransformation())
             }
@@ -124,8 +122,7 @@ class EditFragment : Fragment() {
         }
     }
 
-
-    companion object{
+    companion object {
         const val PICK_IMAGE_REQUEST_CODE = 2021
     }
 }

@@ -47,6 +47,7 @@ class AuthenticationFragment : Fragment(R.layout.authentication_fragment) {
 
             if(response == null){
                 Snackbar.make(requireView(), "log in failed", Snackbar.LENGTH_SHORT).show()
+                login()
                 return
             }
 

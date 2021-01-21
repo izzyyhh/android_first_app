@@ -1,5 +1,6 @@
 package com.example.mobilevo2
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -44,7 +45,7 @@ class ProfileFragment : Fragment(){
             adapter.submitList(posts)
         }
 
-        binding.postsProfileList.layoutManager = GridLayoutManager(context, 3)
+        binding.postsProfileList.layoutManager = CustomGridLayoutManager(context, 3)
         binding.postsProfileList.adapter = adapter
 
         //edit button or follow button
@@ -129,8 +130,13 @@ class ProfileFragment : Fragment(){
                     }
                 }
 
-
-
     }
-
+    private class CustomGridLayoutManager(context: Context?, spanCount: Int) : GridLayoutManager(context, spanCount) {
+        override fun canScrollVertically(): Boolean {
+            return true
+            //i want to set this to false, but then it doesnt show all posts for some reason
+            //it shows only 18 posts, when set to false
+        }
+    }
 }
+

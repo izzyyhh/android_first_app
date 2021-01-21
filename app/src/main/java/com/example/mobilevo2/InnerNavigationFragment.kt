@@ -51,7 +51,7 @@ class InnerNavigationFragment : Fragment() {
                 }
                 else -> {
                     FirebaseAuth.getInstance().signOut()
-
+                    activity?.finish() //in order to delete history of navigation
                     navController.navigate(R.id.mainActivity)
                     true
                 }
